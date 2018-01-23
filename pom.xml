@@ -393,13 +393,19 @@
 			<version>0.5.5</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.doxia/doxia-core -->
+		<dependency>
+    			<groupId>org.apache.maven.doxia</groupId>
+    			<artifactId>doxia-core</artifactId>
+    			<version>1.0-alpha-7</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
 			<id>spring-snapshot</id>
 			<name>SpringSource Snapshot Repository</name>
-			<url>http://repo.springsource.org/snapshot</url>
+			<url>http://repo.spring.io/libs-snapshot/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -411,7 +417,7 @@
 		<repository>
 			<id>spring-repository</id>
 			<name>SpringSource Repository</name>
-			<url>http://repo.springsource.org/release</url>
+			<url>http://repo.spring.io/libs-release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -420,7 +426,7 @@
 		<repository>
 			<id>spring-milestone</id>
 			<name>SpringSource Milestone Repository</name>
-			<url>http://repo.springsource.org/milestone</url>
+			<url>http://repo.spring.io/libs-milestone</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
