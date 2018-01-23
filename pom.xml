@@ -15,7 +15,7 @@
 	<packaging>war</packaging>
 	<version>1.0.0.BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.8</java-version>
+		<java-version>1.7</java-version>
 		<org.springframework-version>3.1.2.RELEASE</org.springframework-version>
 		<org.springframework.test-mvc-version>1.0.0.M1</org.springframework.test-mvc-version>
 		<org.springframework.security-version>3.1.0.RELEASE</org.springframework.security-version>
@@ -456,7 +456,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.8</version>
+				<version>1.3.1</version>
 				<dependencies>
 					<!-- Note: Maven 2.0.9 or > required or these are ignored (MNG-2972) -->
 					<dependency>
