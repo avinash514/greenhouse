@@ -1,5 +1,5 @@
-Pipeline{
-node {
+pipeline{
+agent any
       stage('init') {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'ed737560-5157-45fa-a1de-17becf0802d9', url: 'https://github.com/avinash514/greenhouse.git']]])
   }
@@ -39,5 +39,5 @@ node {
 			kubectl autoscale deployment greenhouse --cpu-percent=50 --min=1 --max=10
         }
     }
-}
+
 }
