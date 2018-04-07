@@ -4,7 +4,7 @@
 		}
 		stage('SrcBuild') {
       			mvnHome = 'C:\\Users\\Avinash\\.jenkins\\tools\\hudson.tasks.Maven_MavenInstallation\\Maven3.3.9'
-      			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_80'
+      			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_76'
         		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean package"
         		bat 'ren target\\greenhouse-*.war greenhouse.war'
 		}
