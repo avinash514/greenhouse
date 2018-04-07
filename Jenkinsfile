@@ -3,7 +3,7 @@
     		 	checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'ed737560-5157-45fa-a1de-17becf0802d9', url: 'https://github.com/avinash514/greenhouse.git']]])
 		}
 		stage('SrcBuild') {
-      			mvnHome = 'C:\\Users\\adimmeta\\.jenkins\\tools\\hudson.tasks.Maven_MavenInstallation\\Maven-3.3.9'
+      			mvnHome = 'C:\\Users\\adimmeta\\.jenkins\\tools\\hudson.tasks.Maven_MavenInstallation\\Maven3.3.9'
       			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_80'
         		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean package"
         		bat 'ren target\\greenhouse-*.war greenhouse.war'
