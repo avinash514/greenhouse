@@ -661,11 +661,16 @@
 	</pluginRepositories>
 
 	<distributionManagement>
-		<!-- Temporary until we have a need to publish to a remote release repository -->
+		<!-- Temporary until we have a need to publish to a remote release repository 
 		<snapshotRepository>
 			<id>localPublish</id>
 			<name>localPublish</name>
 			<url>file://${user.home}/local-maven-publish-repository</url>
+		</snapshotRepository> -->
+		<snapshotRepository>
+			<id>Nexus-Repo</id>
+			<name>Nexus-Repo</name>
+			<url>http://192.168.1.12:8081/repository/Avinash</url>
 		</snapshotRepository>
 	</distributionManagement>
 
