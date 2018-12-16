@@ -10,15 +10,15 @@
         		//bat 'ren target\\greenhouse-*.war greenhouse.war'
 			bat 'dir %WORKSPACE%'
 		}
-		stage('SonarQube analysis') {
+		/*stage('SonarQube analysis') {
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
-        		/*withSonarQubeEnv('Sonar') { 
+        		withSonarQubeEnv('Sonar') { 
           			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
 				def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
     				if (qg.status != 'OK') {
       					error "Pipeline aborted due to quality gate failure: ${qg.status}"
 				}
-       			 }*/
+       			 }
 			 withSonarQubeEnv('Sonar') {
                     //sh "${scannerHome}/bin/sonar-scanner"
 		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
@@ -44,7 +44,7 @@
                         error  "Quality Gate failure"
                     }
                 }
-   		 }
+   		 }*/
 		
 		stage("Jira") {
   			//timeout(time: 300, unit: 'SECONDS') { // Just in case something goes wrong, pipeline will be killed after a timeout
