@@ -644,7 +644,7 @@
 		<pluginRepository>
 			<id>spring-repository</id>
 			<name>SpringSource Repository</name>
-			<url>https://repo.springsource.org/release</url>
+			<url>http://central.maven.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
