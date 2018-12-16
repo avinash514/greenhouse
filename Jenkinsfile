@@ -8,16 +8,21 @@
       			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_76'
         		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean install -Dmaven.test.skip=true"
         		//bat 'ren target\\greenhouse-*.war greenhouse.war'
-			withSonarQubeEnv {
-    				sonar.host.url=http://localhost:9000
-				sonar.language="java"
-				sonar.projectKey="greenhouse"
-				sonar.sources="."
-				sonar.java.binaries="./target/classes"
-				sonar.java.source="./src/main/java"
-			}
-
 		}
+		stage('SonarQube analysis') { 
+        		withSonarQubeEnv('Sonar') { 
+          			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar ' + 
+          			'-f pom.xml ' +
+          			'-Dsonar.projectKey=com.huettermann:all:master ' +
+          			'-Dsonar.login=avinash' +
+          			'-Dsonar.password=avinash9 ' +
+          			'-Dsonar.language=java ' +
+          			'-Dsonar.sources=. ' +
+          			'-Dsonar.tests=. ' +
+          			'-Dsonar.test.inclusions=**/*Test*/** ' +
+          			'-Dsonar.exclusions=**/*Test*/**'
+       			 }
+   		 }
 		
 		stage("Quality Gate") {
   			timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
