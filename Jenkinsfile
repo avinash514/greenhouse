@@ -6,10 +6,10 @@
 			echo 'Pulling...' + env.BRANCH_NAME
       			mvnHome = 'C:\\Users\\Avinash\\.jenkins\\tools\\hudson.tasks.Maven_MavenInstallation\\Maven3.3.9'
       			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_76'
-        		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean package"
-        		bat 'ren target\\greenhouse-*.war greenhouse.war'
+        		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean install -Dmaven.test.skip=true"
+        		//bat 'ren target\\greenhouse-*.war greenhouse.war'
 		}
-		withCredentials([azureServicePrincipal('f3b1d596-14a6-433f-97f3-845de6658ca4')]) {
+		/*withCredentials([azureServicePrincipal('f3b1d596-14a6-433f-97f3-845de6658ca4')]) {
 			stage('Prepare Environment') {
 				echo "Preparing environment for Azure Login"
             			//bat 'az login --service-principal -u fb56826e-4366-4176-8e34-5b054171c187 -p "M1racle@45625" -t e9e03a7f-edec-4885-a3fc-b21693f4bedc'
@@ -32,5 +32,5 @@
             			//kubectl create -f ./deployment.yml
 				//kubectl autoscale deployment greenhouse --cpu-percent=50 --min=1 --max=10
 			}
-		}
+		}*/
 	}
