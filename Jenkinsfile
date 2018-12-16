@@ -12,17 +12,7 @@
 		stage('SonarQube analysis') {
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
         		withSonarQubeEnv('Sonar') { 
-          			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar ' + 
-          			'-f pom.xml ' +
-				'-Dsonar.host.url=http://localhost:9000 ' +
-          			'-Dsonar.projectKey=greenhouse ' +
-          			'-Dsonar.login=avinash ' +
-          			'-Dsonar.password=avinash9 ' +
-          			'-Dsonar.language=java ' +
-          			'-Dsonar.sources=. ' +
-          			'-Dsonar.tests=. ' +
-          			'-Dsonar.test.inclusions=**/*Test*/** ' +
-          			'-Dsonar.exclusions=**/*Test*/**'
+          			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="https://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="avinash" -Dsonar.password="avinash9" -Dsonar.language="java" -Dsonar.sources="." -Dsonar.tests="."'
        			 }
    		 }
 		
