@@ -11,16 +11,40 @@
 		}
 		stage('SonarQube analysis') {
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
-        		withSonarQubeEnv('Sonar') { 
+        		/*withSonarQubeEnv('Sonar') { 
           			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
 				def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
     				if (qg.status != 'OK') {
       					error "Pipeline aborted due to quality gate failure: ${qg.status}"
 				}
-       			 }
+       			 }*/
+			 withSonarQubeEnv('Sonar') {
+                    //sh "${scannerHome}/bin/sonar-scanner"
+		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
+                    bat "cat .sonar/report-task.txt"
+                    def props = readProperties  file: '.sonar/report-task.txt'
+                    echo "properties=${props}"
+                    def sonarServerUrl=props['serverUrl']
+                    def ceTaskUrl= props['ceTaskUrl']
+                    def ceTask
+                    timeout(time: 1, unit: 'MINUTES') {
+                        waitUntil {
+                            def response = httpRequest ceTaskUrl
+                            ceTask = readJSON text: response.content
+                            echo ceTask.toString()
+                            return "SUCCESS".equals(ceTask["task"]["status"])
+                        }
+                    }
+                    def response2 = httpRequest url : sonarServerUrl + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"], authentication: 'jenkins_scanner'
+                    def qualitygate =  readJSON text: response2.content
+                    echo qualitygate.toString()
+                    if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
+                        error  "Quality Gate failure"
+                    }
+                }
    		 }
 		
-		stage("Quality Gate") {
+		stage("Jira") {
   			//timeout(time: 300, unit: 'SECONDS') { // Just in case something goes wrong, pipeline will be killed after a timeout
     			//def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
     				//if (qg.status != 'OK') {
