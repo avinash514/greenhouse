@@ -6,7 +6,7 @@
 			echo 'Pulling...' + env.BRANCH_NAME
       			mvnHome = 'C:\\Users\\Avinash\\.jenkins\\tools\\hudson.tasks.Maven_MavenInstallation\\Maven3.3.9'
       			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_76'
-        		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean install -Dmaven.test.skip=true"
+        		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean install -Dmaven.test.skip=true sonar:sonar"
         		//bat 'ren target\\greenhouse-*.war greenhouse.war'
 		}
 		/*withCredentials([azureServicePrincipal('f3b1d596-14a6-433f-97f3-845de6658ca4')]) {
