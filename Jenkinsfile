@@ -22,9 +22,9 @@
 			 withSonarQubeEnv('Sonar') {
                     //sh "${scannerHome}/bin/sonar-scanner"
 		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
-				 bat 'dir %WORKSPACE%\\target\\sonar'
-                    bat "cat %WORKSPACE%\\.scannerwork\\report-task.txt"
-                    def props = readProperties  file: '%WORKSPACE%\\.scannerwork\\report-task.txt'
+				 //bat 'dir %WORKSPACE%\\target\\sonar'
+                    bat "cat %WORKSPACE%\\target\\sonar\\report-task.txt"
+                    def props = readProperties  file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
                     echo "properties=${props}"
                     def sonarServerUrl=props['serverUrl']
                     def ceTaskUrl= props['ceTaskUrl']
