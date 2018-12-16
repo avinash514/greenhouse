@@ -27,7 +27,8 @@
 			//Properties props = new Properties()
 			//File propertiesFile = new File('%WORKSPACE%\\target\\sonar\\report-task.txt')
                     	//def props = readProperties  file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
-			def props = readProperties interpolate: true, file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
+			//def props = readProperties interpolate: true, file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
+				 def props = readFile "%WORKSPACE%\\target\\sonar\\report-task.txt"
 			println $props
 			
                     echo "properties=${props}"
