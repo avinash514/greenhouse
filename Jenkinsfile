@@ -21,6 +21,21 @@
     			def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
     				if (qg.status != 'OK') {
       					error "Pipeline aborted due to quality gate failure: ${qg.status}"
+					bat '''set data = "
+					{
+						"fields": {
+							"project":
+								{
+									"key": "PROJKEY"
+								},
+							"summary": "REST ye merry gentlemen.",
+							"description": "Creating of an issue using project keys and issue type names using the REST API",
+							"issuetype": {"name": "Task"}
+						}
+
+					}"'''
+
+					bat 'curl -D- -u avinash:avinash9 -X POST --data @data -H "Content-Type: application/json" http://localhost:8085/rest/api/2/issue/'
     				}
 			//}
 		}
