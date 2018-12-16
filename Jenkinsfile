@@ -23,14 +23,14 @@
                     //sh "${scannerHome}/bin/sonar-scanner"
 		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
 				 //bat 'dir %WORKSPACE%\\target\\sonar'
-                        def Property = 'bat "cat %WORKSPACE%\\target\\sonar\\report-task.txt"'
+                     bat 'cat %WORKSPACE%\\target\\sonar\\report-task.txt'
 			
                     	def props = readProperties  file: "%WORKSPACE%\\target\\sonar\\report-task.txt"
 			//def props = readProperties interpolate: true, file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
 				 //def props = readFile "%WORKSPACE%\\target\\sonar\\report-task.txt"
 				 println "1"
-				 echo $Property
-			println $props
+				 //echo $Property
+			//println $props
 			
                     echo "properties=${props}"
                     def sonarServerUrl=props['serverUrl']
