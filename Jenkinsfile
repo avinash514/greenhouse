@@ -8,7 +8,7 @@
       			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.7.0_76'
         		bat "${mvnHome}\\bin\\mvn -Dmaven.test.failure.ignore clean install -Dmaven.test.skip=true"
         		//bat 'ren target\\greenhouse-*.war greenhouse.war'
-			bat 'dir %WORKSPACE%\\target\\sonar'
+			//bat 'dir %WORKSPACE%\\target\\sonar'
 		}
 		/*stage('SonarQube analysis') {
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
