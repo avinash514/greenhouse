@@ -30,6 +30,7 @@
     				if (qg.status != 'OK') {
       					error "Pipeline aborted due to quality gate failure: ${qg.status}"
     				}
+			}
 		}
 		/*withCredentials([azureServicePrincipal('f3b1d596-14a6-433f-97f3-845de6658ca4')]) {
 			stage('Prepare Environment') {
@@ -55,4 +56,4 @@
 				//kubectl autoscale deployment greenhouse --cpu-percent=50 --min=1 --max=10
 			}
 		}*/
-	}
+}
