@@ -34,63 +34,8 @@
 				}'''
 				}
        			 }
-			 /*withSonarQubeEnv('Sonar') {
-                    //sh "${scannerHome}/bin/sonar-scanner"
-		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
-				 //bat 'dir %WORKSPACE%\\target\\sonar'
-                     //bat 'cat %WORKSPACE%\\target\\sonar\\report-task.txt'
 			
-                    	//def props = readProperties  file: "%WORKSPACE%\\target\\sonar\\report-task.txt"
-			//def props = readProperties interpolate: true, file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
-				 //def props = readFile "%WORKSPACE%\\target\\sonar\\report-task.txt"
-				 //println "1"
-				 //echo $Property
-			//println $props
-			
-                    echo "properties=${props}"
-                    def sonarServerUrl=props['serverUrl']
-                    def ceTaskUrl= props['ceTaskUrl']
-                    def ceTask
-                    timeout(time: 1, unit: 'MINUTES') {
-                        waitUntil {
-                            def response = httpRequest ceTaskUrl
-                            ceTask = readJSON text: response.content
-                            echo ceTask.toString()
-                            return "SUCCESS".equals(ceTask["task"]["status"])
-                        }
-                    }
-                    def response2 = httpRequest url : sonarServerUrl + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"], authentication: 'jenkins_scanner'
-                    def qualitygate =  readJSON text: response2.content
-                    echo qualitygate.toString()
-                    if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
-                        error  "Quality Gate failure"
-                    }
-                }
-   		 }*/
 		
-		stage("Jira") {
-  			//timeout(time: 300, unit: 'SECONDS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-    			//def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-    				//if (qg.status != 'OK') {
-      					//error "Pipeline aborted due to quality gate failure: ${qg.status}"
-					/*bat '''set data = "
-					{
-						"fields": {
-							"project":
-								{
-									"key": "PROJKEY"
-								},
-							"summary": "REST ye merry gentlemen.",
-							"description": "Creating of an issue using project keys and issue type names using the REST API",
-							"issuetype": {"name": "Task"}
-						}
-
-					}"'''*/
-
-					//bat 'curl -D- -u avinash:avinash9 -X POST --data @data -H "Content-Type: application/json" http://localhost:8085/rest/api/2/issue/'
-    				//}
-			//}
-		}
 		/*withCredentials([azureServicePrincipal('f3b1d596-14a6-433f-97f3-845de6658ca4')]) {
 			stage('Prepare Environment') {
 				echo "Preparing environment for Azure Login"
