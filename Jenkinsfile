@@ -14,7 +14,7 @@
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
         		withSonarQubeEnv('Sonar') { 
           			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
-				powershell '''$sonarProps = convertfrom-stringdata (get-content %WORKSPACE%\\target\\sonar\\report-task.txt -raw)
+				powershell '''$sonarProps = convertfrom-stringdata (get-content ${WORKSPACE}\\target\\sonar\\report-task.txt -raw)
 					   	$ceTaskUrl = $sonarProps.ceTaskUrl
 						$serverUrl = $sonarProps.serverUrl
 					DO {
