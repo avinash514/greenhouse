@@ -29,7 +29,7 @@
 						echo "Creating JIRA"
 						$user = [System.Text.Encoding]::UTF8.GetBytes("avinash:avinash9")
 						$headers = @{Authorization = "Basic " + [System.Convert]::ToBase64String($user)}
-						$body = Get-Content "C:\\Users\\Avinash\\Desktop\\data.txt"
+						$body = Get-Content ".\\data.txt"
 						Invoke-RestMethod -URI "http://localhost:8085/rest/api/2/issue/" -Method Post -Headers $headers  -ContentType "application/json" -Body $body
 				}'''
 				}
