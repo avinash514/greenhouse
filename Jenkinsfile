@@ -12,23 +12,38 @@
 		}
 		stage('SonarQube analysis') {
 			env.JAVA_HOME = 'C:\\Program Files\\Java\\jdk1.8.0_101'
-        		/*withSonarQubeEnv('Sonar') { 
+        		withSonarQubeEnv('Sonar') { 
           			bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
-				def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-    				if (qg.status != 'OK') {
-      					error "Pipeline aborted due to quality gate failure: ${qg.status}"
+				powershell '''$sonarProps = convertfrom-stringdata (get-content %WORKSPACE%\\target\\sonar\\report-task.txt -raw)
+					   	$ceTaskUrl = $sonarProps.ceTaskUrl
+						$serverUrl = $sonarProps.serverUrl
+					DO {
+						$sonarScanner = Invoke-RestMethod -Uri "$ceTaskUrl"
+						$sonarTaskStatus = $sonarScanner.task.status
+						start-sleep 10
+					   } while ($sonarTaskStatus -ne \'SUCCESS\')
+						$sonarAnalysisID = $sonarScanner.task.analysisId
+						$sonarQG = Invoke-RestMethod -Uri $serverUrl"/api/qualitygates/project_status?analysisId="$sonarAnalysisID
+						$sonarQGstatus = $sonarQG.projectstatus.status
+					if ($sonarQGstatus -eq \'ERROR\'){
+						echo "Creating JIRA"
+						$user = [System.Text.Encoding]::UTF8.GetBytes("avinash:avinash9")
+						$headers = @{Authorization = "Basic " + [System.Convert]::ToBase64String($user)}
+						$body = Get-Content C:\\\\Users\\\\Avinash\\\\Desktop\\\\data.txt
+						Invoke-RestMethod -URI "http://localhost:8085/rest/api/2/issue/" -Method Post -Headers $headers  -ContentType "application/json" -Body $body
+				}'''
 				}
-       			 }*/
-			 withSonarQubeEnv('Sonar') {
+       			 }
+			 /*withSonarQubeEnv('Sonar') {
                     //sh "${scannerHome}/bin/sonar-scanner"
 		    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar -f pom.xml -Dsonar.host.url="http://localhost:9000" -Dsonar.projectKey="greenhouse" -Dsonar.login="admin" -Dsonar.password="admin" -Dsonar.language="java" -Dsonar.sources="./src/main/java"'
 				 //bat 'dir %WORKSPACE%\\target\\sonar'
-                     bat 'cat %WORKSPACE%\\target\\sonar\\report-task.txt'
+                     //bat 'cat %WORKSPACE%\\target\\sonar\\report-task.txt'
 			
-                    	def props = readProperties  file: "%WORKSPACE%\\target\\sonar\\report-task.txt"
+                    	//def props = readProperties  file: "%WORKSPACE%\\target\\sonar\\report-task.txt"
 			//def props = readProperties interpolate: true, file: '%WORKSPACE%\\target\\sonar\\report-task.txt'
 				 //def props = readFile "%WORKSPACE%\\target\\sonar\\report-task.txt"
-				 println "1"
+				 //println "1"
 				 //echo $Property
 			//println $props
 			
@@ -51,7 +66,7 @@
                         error  "Quality Gate failure"
                     }
                 }
-   		 }
+   		 }*/
 		
 		stage("Jira") {
   			//timeout(time: 300, unit: 'SECONDS') { // Just in case something goes wrong, pipeline will be killed after a timeout
@@ -72,7 +87,7 @@
 
 					}"'''*/
 
-					bat 'curl -D- -u avinash:avinash9 -X POST --data @data -H "Content-Type: application/json" http://localhost:8085/rest/api/2/issue/'
+					//bat 'curl -D- -u avinash:avinash9 -X POST --data @data -H "Content-Type: application/json" http://localhost:8085/rest/api/2/issue/'
     				//}
 			//}
 		}
